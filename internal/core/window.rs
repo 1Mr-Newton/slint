@@ -427,6 +427,11 @@ pub struct PopupWindow {
     /// Whether the popup is a popup menu.
     /// Popup menu allow the mouse event to be propagated on their parent menu/menubar
     is_menu: bool,
+    /// Tooltip popups are input-transparent overlays.
+    ///
+    /// They should render above the content, but should not participate in
+    /// mouse hit-testing / dispatch (so underlying hover/pressed state stays correct).
+    is_tooltip: bool,
 }
 
 #[pin_project::pin_project]
@@ -687,6 +692,11 @@ impl WindowInner {
             let mut offset = LogicalPoint::default();
             let mut menubar_item = None;
             for (idx, popup) in active_popups.borrow().iter().enumerate().rev() {
+                // Tooltip popups are input-transparent overlays and should not
+                // take over input dispatch.
+                if popup.is_tooltip {
+                    continue;
+                }
                 item_tree = None;
                 menubar_item = None;
                 if let PopupWindowLocation::ChildWindow(coordinates) = &popup.location {
@@ -1349,6 +1359,7 @@ impl WindowInner {
         close_policy: PopupClosePolicy,
         parent_item: &ItemRc,
         is_menu: bool,
+        is_tooltip: bool,
     ) -> NonZeroU32 {
         let position = parent_item
             .map_to_native_window(parent_item.geometry().origin + position.to_euclid().to_vector());
@@ -1440,13 +1451,18 @@ impl WindowInner {
             .and_then(|x| x.create_popup(LogicalRect::new(position, size)))
         {
             None => {
-                let clip = LogicalRect::new(
-                    LogicalPoint::new(0.0 as crate::Coord, 0.0 as crate::Coord),
-                    self.window_adapter().size().to_logical(self.scale_factor()).to_euclid(),
-                );
+                // Tooltips may extend past the window (e.g. above/left of the anchor); do not clamp.
+                let clip_region = if is_tooltip {
+                    None
+                } else {
+                    Some(LogicalRect::new(
+                        LogicalPoint::new(0.0 as crate::Coord, 0.0 as crate::Coord),
+                        self.window_adapter().size().to_logical(self.scale_factor()).to_euclid(),
+                    ))
+                };
                 let rect = popup::place_popup(
                     popup::Placement::Fixed(LogicalRect::new(position, size)),
-                    &Some(clip),
+                    &clip_region,
                 );
                 self.window_adapter().request_redraw();
                 PopupWindowLocation::ChildWindow(rect.origin)
@@ -1457,10 +1473,14 @@ impl WindowInner {
             }
         };
 
-        let focus_item = self
-            .take_focus_item(&FocusEvent::FocusOut(FocusReason::PopupActivation))
-            .map(|item| item.downgrade())
-            .unwrap_or_default();
+        // Tooltips should not steal focus.
+        let focus_item = if is_tooltip {
+            Default::default()
+        } else {
+            self.take_focus_item(&FocusEvent::FocusOut(FocusReason::PopupActivation))
+                .map(|item| item.downgrade())
+                .unwrap_or_default()
+        };
 
         self.active_popups.borrow_mut().push(PopupWindow {
             popup_id,
@@ -1470,6 +1490,7 @@ impl WindowInner {
             focus_item_in_parent: focus_item,
             parent_item: parent_item.downgrade(),
             is_menu,
+            is_tooltip,
         });
 
         popup_id
@@ -1943,6 +1964,7 @@ pub mod ffi {
         close_policy: PopupClosePolicy,
         parent_item: &ItemRc,
         is_menu: bool,
+        is_tooltip: bool,
     ) -> NonZeroU32 {
         unsafe {
             let window_adapter = &*(handle as *const Rc<dyn WindowAdapter>);
@@ -1952,6 +1974,7 @@ pub mod ffi {
                 close_policy,
                 parent_item,
                 is_menu,
+                is_tooltip,
             )
         }
     }
