@@ -343,7 +343,7 @@ pub fn generate_builtin_struct_docs(include_experimental: bool) -> Result<(), Bo
 }
 
 /// Convert a ascii pascal case string to kebab case.
-fn to_kebab_case(str: &str) -> String {
+pub fn to_kebab_case(str: &str) -> String {
     let mut result = Vec::with_capacity(str.len());
     for x in str.as_bytes() {
         if x.is_ascii_uppercase() {

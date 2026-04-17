@@ -43,8 +43,8 @@ while the `preferred-width` and `preferred-height` remain unchanged.
 <SlintProperty propName="color" typeName="brush" defaultValue="<depends on theme>">
     The color of the text.
 
-<CodeSnippetMD imagePath="/src/assets/generated/text-color.png" needsBackground="true" imageWidth="200" imageHeight="200" imageAlt='text color'>
-```slint "color: #3586f4;"
+<CodeSnippetMD imagePath="/src/assets/generated/text-1.png" imageAlt="text color" imageWidth="200" imageHeight="200" needsBackground="true">
+```slint
 Text {
     text: "Hello";
     color: #3586f4;
@@ -58,8 +58,8 @@ Text {
 <SlintProperty propName="font-size" typeName="length">
 The font size of the text.
 
-<CodeSnippetMD imagePath="/src/assets/generated/text-font-size.png" needsBackground="true" imageWidth="200" imageHeight="200" imageAlt='text font-size'>
-```slint "font-size: 70pt;"
+<CodeSnippetMD imagePath="/src/assets/generated/text-2.png" imageAlt="text font-size" imageWidth="200" imageHeight="200" needsBackground="true">
+```slint
 Text {
     text: "Big";
     color: black;
@@ -73,9 +73,8 @@ Text {
 <SlintProperty propName="font-weight" typeName="int">
 The weight of the font. The values range from 100 (lightest) to 900 (thickest). 400 is the normal weight. Use the <Link type="FontWeight" /> namespace for predefined constants.
 
-<CodeSnippetMD imagePath="/src/assets/generated/text-font-weight.png" needsBackground="true" imageWidth="200" imageHeight="200" imageAlt='text font-weight'>
-
-```slint 'font-weight: FontWeight.extra-bold;'
+<CodeSnippetMD imagePath="/src/assets/generated/text-3.png" imageAlt="text font-weight" imageWidth="200" imageHeight="200" needsBackground="true">
+```slint
 Text {
     text: "BOLD";
     color: black;
@@ -88,8 +87,8 @@ Text {
 
 ### horizontal-alignment
 <SlintProperty propName="horizontal-alignment" typeName="enum" enumName="TextHorizontalAlignment">
-<CodeSnippetMD imagePath="/src/assets/generated/text-horizontal-alignment.png" needsBackground="true" imageWidth="200" imageHeight="200"  imageAlt='text-horizontal-alignment'>
-```slint "horizontal-alignment: left;"
+<CodeSnippetMD imagePath="/src/assets/generated/text-4.png" imageAlt="text-horizontal-alignment" imageWidth="200" imageHeight="200" needsBackground="true">
+```slint
 Text {
     x: 0;
     text: "Hello";
@@ -115,8 +114,8 @@ The vertical alignment of the text.
 <SlintProperty propName="font-family" typeName="string">
 The name of the font family selected for rendering the text.
 
-<CodeSnippetMD imagePath="/src/assets/generated/text-font-family.png" needsBackground="true" imageWidth="200" imageHeight="200" imageAlt='text font-family'>
-```slint  'font-family: "Comic Sans MS";'
+<CodeSnippetMD imagePath="/src/assets/generated/text-5.png" imageAlt="text font-family" imageWidth="200" imageHeight="200" needsBackground="true">
+```slint
 Text {
     text: "CoMiC!";
     color: black;
@@ -136,8 +135,8 @@ Text {
 <SlintProperty propName="font-italic" typeName="bool" defaultValue="false">
 Whether or not the font face should be drawn italicized or not.
 
-<CodeSnippetMD imagePath="/src/assets/generated/text-font-italic.png" needsBackground="true" imageWidth="200" imageHeight="200" imageAlt='text font-family'>
-```slint "font-italic: true;"
+<CodeSnippetMD imagePath="/src/assets/generated/text-6.png" imageAlt="text font-family" imageWidth="200" imageHeight="200" needsBackground="true">
+```slint
 Text {
     text: "Italic";
     color: black;
@@ -155,9 +154,8 @@ How the text should behave when it exceeds the available space.
 
 ### wrap
 <SlintProperty propName="wrap" typeName="enum" enumName="TextWrap">
-<CodeSnippetMD imagePath="/src/assets/generated/text_wrap.png" needsBackground="true" imageWidth="200" imageHeight="200" imageAlt='wrap'>
-
-```slint "wrap: word-wrap;"
+<CodeSnippetMD imagePath="/src/assets/generated/text-7.png" imageAlt="wrap" imageWidth="200" imageHeight="200" needsBackground="true">
+```slint
 Text {
     text: "This paragraph breaks into multiple lines of text";
     font-size: 20pt;
@@ -171,8 +169,8 @@ Text {
 ### letter-spacing
 <SlintProperty propName="letter-spacing" typeName="length">
 The letter spacing allows changing the spacing between the glyphs. A positive value increases the spacing and a negative value decreases the distance.
-<CodeSnippetMD imagePath="/src/assets/generated/text-letter-spacing.png" needsBackground="true"  imageWidth="200" imageHeight="200"  imageAlt='text-horizontal-alignment'>
-```slint "letter-spacing: 4px;"
+<CodeSnippetMD imagePath="/src/assets/generated/text-8.png" imageAlt="text-horizontal-alignment" imageWidth="200" imageHeight="200" needsBackground="true">
+```slint
 Text {
     text: "Spaced!";
     color: black;
@@ -186,8 +184,8 @@ Text {
 ### stroke
 <SlintProperty propName="stroke" typeName="brush">
 The brush used for the text outline.
-<CodeSnippetMD imagePath="/src/assets/generated/text-stroke.png" needsBackground="true" imageWidth="300" imageHeight="200" imageAlt='text stroke'>
-```slint "stroke: darkblue;"
+<CodeSnippetMD imagePath="/src/assets/generated/text-9.png" imageAlt="text stroke" imageWidth="300" imageHeight="200" needsBackground="true">
+```slint
 Text {
     text: "Stroke";
     stroke-width: 2px;
@@ -207,9 +205,8 @@ The width of the text outline. If the width is zero, then a hairline stroke (1 p
 
 ### stroke-style
 <SlintProperty propName="stroke-style" typeName="enum" enumName="TextStrokeStyle">
-<CodeSnippetMD imagePath="/src/assets/generated/text-stroke-style.png" needsBackground="true" imageWidth="200" imageHeight="200" imageAlt='stroke-style'>
-
-```slint "stroke-style: center;"
+<CodeSnippetMD imagePath="/src/assets/generated/text-10.png" imageAlt="stroke-style" imageWidth="200" imageHeight="200" needsBackground="true">
+```slint
 Text {
     text: "Style";
     stroke-width: 2px;
