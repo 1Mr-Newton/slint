@@ -1043,7 +1043,8 @@ pub fn generate() -> Result<(), Box<dyn std::error::Error>> {
 
     // Include all types for resolution, regardless of experimental flag.
     let enum_names: HashSet<String> = mdx::extract_enum_docs(true).keys().cloned().collect();
-    let struct_names: HashSet<String> = mdx::extract_builtin_structs(true).keys().cloned().collect();
+    let struct_names: HashSet<String> =
+        mdx::extract_builtin_structs(true).keys().cloned().collect();
     let own_page = components_with_own_page(&all_components);
 
     for elem in &elements {

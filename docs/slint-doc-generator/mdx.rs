@@ -131,7 +131,9 @@ pub struct EnumDoc {
     pub values: Vec<EnumValueDoc>,
 }
 
-pub fn extract_enum_docs(include_experimental: bool) -> std::collections::BTreeMap<String, EnumDoc> {
+pub fn extract_enum_docs(
+    include_experimental: bool,
+) -> std::collections::BTreeMap<String, EnumDoc> {
     let mut enums: std::collections::BTreeMap<String, EnumDoc> = std::collections::BTreeMap::new();
 
     macro_rules! gen_enums {
@@ -185,7 +187,9 @@ pub struct StructDoc {
     pub fields: Vec<StructFieldDoc>,
 }
 
-pub fn extract_builtin_structs(include_experimental: bool) -> std::collections::BTreeMap<String, StructDoc> {
+pub fn extract_builtin_structs(
+    include_experimental: bool,
+) -> std::collections::BTreeMap<String, StructDoc> {
     // `Point` should be in the documentation, but it's not inside of `for_each_builtin_structs`,
     // so we manually create its entry first.
     let mut structs = std::collections::BTreeMap::from([
@@ -337,7 +341,9 @@ description: {0} content
     Ok(())
 }
 
-pub fn generate_builtin_struct_docs(include_experimental: bool) -> Result<(), Box<dyn std::error::Error>> {
+pub fn generate_builtin_struct_docs(
+    include_experimental: bool,
+) -> Result<(), Box<dyn std::error::Error>> {
     let structs = extract_builtin_structs(include_experimental);
     write_individual_struct_files(&crate::root_dir(), structs)
 }
