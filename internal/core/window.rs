@@ -1453,10 +1453,14 @@ impl WindowInner {
             .and_then(|x| x.create_popup(LogicalRect::new(position, size)))
         {
             None => {
-                let clip_region = Some(LogicalRect::new(
-                    LogicalPoint::new(0.0 as crate::Coord, 0.0 as crate::Coord),
-                    self.window_adapter().size().to_logical(self.scale_factor()).to_euclid(),
-                ));
+                let clip_region = if popup_kind == PopupKind::Tooltip {
+                    None
+                } else {
+                    Some(LogicalRect::new(
+                        LogicalPoint::new(0.0 as crate::Coord, 0.0 as crate::Coord),
+                        self.window_adapter().size().to_logical(self.scale_factor()).to_euclid(),
+                    ))
+                };
                 let rect = popup::place_popup(
                     popup::Placement::Fixed(LogicalRect::new(position, size)),
                     &clip_region,
