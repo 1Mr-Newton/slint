@@ -1899,6 +1899,7 @@ impl QtWindow {
         });
 
         // Update the accessibility tree (if the component tree has changed)
+        WindowInner::from_pub(&self.window).ensure_tree_instantiated();
         if self.tree_structure_changed.replace(false) {
             let widget_ptr = self.widget_ptr();
             cpp! { unsafe [widget_ptr as "QWidget*"] {
