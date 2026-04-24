@@ -948,6 +948,17 @@ impl<T: Clone> Property<T> {
         self.get_internal()
     }
 
+    /// Register this property as a dependency of the current tracking scope
+    /// without evaluating any binding. Use this when you only need the
+    /// tracking scope to be notified on changes, not the current value.
+    pub fn register_as_dependency(self: Pin<&Self>) {
+        let handle = unsafe { Pin::new_unchecked(&self.handle) };
+        handle.register_as_dependency_to_current_binding(
+            #[cfg(slint_debug_property)]
+            self.debug_name.borrow().as_str(),
+        );
+    }
+
     /// Get the cached value without registering any dependencies or executing any binding
     pub fn get_internal(&self) -> T {
         self.handle.access(|_| {
