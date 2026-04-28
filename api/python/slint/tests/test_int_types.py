@@ -9,6 +9,7 @@ The interpreter represents every number as `Value::Number(f64)`; the bindings
 must consult the declared `Type` (Int32 vs Float32) and convert accordingly.
 """
 
+import typing
 from pathlib import Path
 from slint import slint as native
 
@@ -94,7 +95,7 @@ def test_struct_int_field_in_callback_arg() -> None:
     instance.set_callback("got", lambda item: received.append(item))
     instance.invoke("got", {"count": 9})
     assert len(received) == 1
-    item = received[0]
+    item = typing.cast(typing.Any, received[0])
     assert type(item.count) is int
     assert item.count == 9
 
